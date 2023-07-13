@@ -7,10 +7,12 @@ interface Props {
 }
 export interface UIState {
   sideMenuOpen: boolean;
+  isAddingEntry: boolean;
 }
 
 const UI_INITIAL_STATE: UIState = {
   sideMenuOpen: false,
+  isAddingEntry: false,
 };
 
 const UIProvider = ({ children }: Props) => {
@@ -22,9 +24,14 @@ const UIProvider = ({ children }: Props) => {
   const closeSideMenu = () => {
     dispatch({ type: "UI- Close Sidebar" });
   };
+  const setIsAddingEntry = (isAdding: boolean) => {
+    dispatch({ type: "UI - Set isAddingEntry", payload: isAdding });
+  };
 
   return (
-    <UIContext.Provider value={{ ...state, openSideMenu, closeSideMenu }}>
+    <UIContext.Provider
+      value={{ ...state, openSideMenu, closeSideMenu, setIsAddingEntry }}
+    >
       {children}
     </UIContext.Provider>
   );
